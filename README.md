@@ -13,7 +13,7 @@
   <b>GraphDreamer</b> takes scene graphs as input and generates object compositional 3D scenes.
 </p>
 
-## GraphDreamer
+## Abstract
 This repository contains a pytorch implementation for the paper [GraphDreamer: Compositional 3D Scene Synthesis from Scene Graphs](https://arxiv.org/abs/2312.00093). Our work present the first framework capable of generating **compositional 3D scenes** from **scene graphs**, where objects are represented as nodes and their interactions as edges. See the demo bellow to get a general idea.
 
 <img width="100%" src="assets/demo.gif"/>
