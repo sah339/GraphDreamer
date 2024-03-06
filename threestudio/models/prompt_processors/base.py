@@ -321,13 +321,13 @@ class PromptProcessor(BaseObject):
                 for d in self.directions
             ]
 
-        prompts_vd_display = " ".join(
-            [
-                f"[{d.name}]:[{prompt}]"
-                for prompt, d in zip(self.prompts_vd, self.directions)
-            ]
-        )
-        threestudio.info(f"Using view-dependent prompts {prompts_vd_display}")
+        # prompts_vd_display = " ".join(
+        #     [
+        #         f"[{d.name}]:[{prompt}]"
+        #         for prompt, d in zip(self.prompts_vd, self.directions)
+        #     ]
+        # )
+        # threestudio.info(f"Using view-dependent prompts {prompts_vd_display}")
 
         self.negative_prompts_vd = [
             d.negative_prompt(self.negative_prompt) for d in self.directions
