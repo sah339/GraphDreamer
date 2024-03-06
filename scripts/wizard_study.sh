@@ -17,6 +17,7 @@ export N123="a Wizard standing before an Wooden Desk, gazing into a Crystal Ball
 export PG=[["$P12"],["$P23"],["$P34"],["$P24"]]
 export E=[[0,1],[1,2],[2,3],[1,3]]
 export C=[[-0.25,0.1,0.],[0.24,0.12,0.],[0.25,0.13,0.2],[0.28,-0.16,0.2]]
+# export C=[[-0.2487,0.0807,0.],[0.2445,0.1220,0.],[0.2555,0.1239,0.2],[0.2802,-0.1589,0.2]]
 export R=[0.5,0.5,0.3,0.3]
 
 # Name save folder:
