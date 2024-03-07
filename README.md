@@ -39,19 +39,81 @@ pip install -r requirements.txt
 ```
 
 ## Quick Start
-Generate a compositional scene of "a blue jay standing on a large basket of rainbow macarons":
+Generate a compositional scene of ```"a blue jay standing on a large basket of rainbow macarons"```:
 ```sh
 bash scripts/blue_jay.sh
 ```
-Results of the first (coarse) and the second (fine) stage will be save to ```examples/gd-if/blue_jay``` and ```examples/gd-sd-refine/blue_jay```. 
+Results of the first (coarse) and the second (fine) stage will be save to ```examples/gd-if/blue_jay/``` and ```examples/gd-sd-refine/blue_jay/```. 
 
 Try different seeds by setting ```seed=YOUR_SEED``` in the script. 
-Use different tags to name different trials by setting ```export TG=YOUR_TAG``` to avoid overwriting. 
+Use different tags to name different trials by setting ```export TG=YOUR_TAG``` to avoid overwriting. More examples can be found under ```scripts/```.
 
-## More applications
+## Try with Your Own Prompts
+Generating a compositional scene with GraphDreamer is as easy as with other dreamers. Here are the steps: 
+
+#### Step 1 - Describe your objects
+Give each object you want to create in the scene a prompt by setting
+```sh
+export P1=YOUR_TEXT_FOR_OBJECT_1
+export P2=YOUR_TEXT_FOR_OBJECT_2
+export P3=YOUR_TEXT_FOR_OBJECT_3
+```
+and ```system.prompt_obj=[["$P1"],["$P2"],["$P3"]]``` in the bash script .
+
+By default, object SDFs will be initialized as spheres centered randomly, with the dispersion of the centers adjusted by multiplying a hyperparameter ```system.geometry.sdf_center_dispersion``` set to ```0.2```. 
+
+#### Step 2 - Describe object relationships
+Compose your objects into a scene by giving each object a prompt on its relationship to another object
+```sh
+export P12=RELATIONSHIP_BETWEEN_OBJECT_1_AND_2 
+export P13=RELATIONSHIP_BETWEEN_OBJECT_1_AND_3
+export P23=RELATIONSHIP_BETWEEN_OBJECT_2_AND_3
+```
+and add ```system.prompt_global=[["$P12"],["$P23"],["$P13"]]``` to your script. Based on these relationships, a graph is created accordingly with edges ```export E=[[0,1],[0,2],[1,2]]``` and ```system.edge_list=$E```.
+
+
+Prompt the global scene by combining ```P12```, ```P13```, and ```P23``` into a sentence
+```sh
+export P=GLOBAL_TEXT_FOR_THE_SCENE
+```
+and add ```system.prompt_processor.prompt="$P"``` into the script. 
+
+
+
+
+#### Step 3 - Negative prompts (optional)
+In this compositional senarios, we found a simple way to create the "negative" prompt for individual objects. 
+For each object, all other objects plus their relationships can be used as a negative prompt, 
+```sh
+export N1=$P23
+export N2=$P13
+export N3=$P12
+```
+and setting```system.prompt_obj_neg=[["$N1"],["$N2"],["$N3"]]```. 
+You can further refine each negative prompts based on this general rule. 
+
+#### Step 4 - Coarse-to-fine training
+Start a new trainining simply by
+```sh
+export TG=YOUR_OWN_TAG
+# Use different tags to avoid overwriting
+
+python launch.py --config CONFIG_FILE --train --gpu 0 exp_root_dir="examples" system.geometry.num_objects=3 use_timestamp=false tag=$TG OTHER_CONFIGS
+```
+Set your own tag of the saving folder by ```export TG=YOUR_OWN_TAG``` and ```tag=$TG```, enable time stamps for naming the folder by setting```use_timestamp=true```.
+
+The training configurations for the coarse stage are stored in ```configs/gd-if.yaml``` and the fine stage in ```configs/gd-sd-refine.yaml```. 
+
+To resume from a previous checkpoint, e.g., resume from a coarse-stage training for the fine stage
+```sh
+resume=examples/gd-if/$TG/ckpts/last.ckpt
+```
+
+
+## More Applications
 GraphDreamer can be used to inverse the semantics in a given image into a 3D scene, by extracting a scene graph directly from an input image with ChatGPT-4. 
 
-To generate more objects and accelerate convergence, you may provide rough center coordinates for each object by setting in the script:
+To generate more objects and accelerate convergence, you may provide rough center coordinates for initializing each object by setting in the script:
 ```sh
 export C=[[X1,Y1,Z1],[X2,Y2,Z3],...,[Xm,Ym,Zm]]
 ``` 
@@ -61,6 +123,8 @@ export R=[R1,R2,...,Rm]
 ```
 Check ```./threestudio/models/geometry/gdreamer_implicit_sdf.py``` for more details on this implementation.
 
+<!-- ## Code Structure
+(TODO) -->
 
 ## Acknowledgement
 The authors extend their thanks to Zehao Yu and Stefano Esposito for their invaluable feedback on the initial draft. Our thanks also go to Yao Feng, Zhen Liu, Zeju Qiu, Yandong Wen, and Yuliang Xiu for their proofreading of the final draft and for their insightful suggestions which enhanced the quality of this paper. Additionally, we appreciate the assistance of those who participated in our user study. 
@@ -70,7 +134,7 @@ Weiyang Liu and Bernhard Sch\"olkopf was supported by the German Federal Ministr
 This codebase is developed upon [threestudio](https://github.com/threestudio-project/threestudio). We appreciate its maintainers for their significant contributions to the community.
 
 
-## BibTex
+## Citation
 ```
 @Inproceedings{gao2024graphdreamer,
   author    = {Gege Gao, Weiyang Liu, Anpei Chen, Andreas Geiger, Bernhard Schölkopf},
