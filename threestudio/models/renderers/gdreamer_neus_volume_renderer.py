@@ -530,8 +530,8 @@ class GDreamerNeuSRenderer(VolumeRenderer):
                             alpha_thre=0.01 if self.cfg.prune_alpha_threshold else 0.0,
                             early_stop_eps=0.0001,
                         )
-                        if m_i.sum().item() == 0:
-                            threestudio.info(f"Samples classified to object {i} are all invisible!")
+                        # if m_i.sum().item() == 0:
+                        #     threestudio.info(f"Samples classified to object {i} are all invisible!")
                     
                     ray_indices_i, t_starts_i_, t_ends_i_ = ray_indices_i[m_i], t_starts_i_[m_i], t_ends_i_[m_i]
                     t_starts_i, t_ends_i = t_starts_i_[..., None], t_ends_i_[..., None]
@@ -1037,8 +1037,8 @@ class GDreamerNeuSRenderer(VolumeRenderer):
                             alpha_thre=0.01 if self.cfg.prune_alpha_threshold else 0.0,
                             early_stop_eps=0.0001,  # <---
                         )
-                        if m_i.sum().item() == 0:
-                            threestudio.info(f"Samples classified to object {i} are all invisible!")
+                        # if m_i.sum().item() == 0:
+                        #     threestudio.info(f"Samples classified to object {i} are all invisible!")
                     
                     ray_indices_i, t_starts_i_, t_ends_i_ = ray_indices_i[m_i], t_starts_i_[m_i], t_ends_i_[m_i]
                     t_starts_i, t_ends_i = t_starts_i_[..., None], t_ends_i_[..., None]
