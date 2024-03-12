@@ -20,22 +20,30 @@ This repository contains a pytorch implementation for the paper [GraphDreamer: C
 
 
 ## Installation
-#### Tested on CentOS 7.9 + Pytorch 2.0.1 
+#### Tested on CentOS 7.9 + Python 3.10.10 + Pytorch 2.0.1
+
+```sh
+git clone https://github.com/GGGHSL/GraphDreamer.git
+cd GraphDreamer
+```
 Create environment:
 ```sh
-conda create -n GraphDreamer python=3.10
-conda activate GraphDreamer
-conda install -c "nvidia/label/cuda-11.7.1" cuda-toolkit
-conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==0.13.0 pytorch-cuda=11.7 -c pytorch -c nvidia
+python3.10 -m venv venv/GraphDreamer
+source venv/GraphDreamer/bin/activate  # Repeat this step for every new terminal
 ```
+Install dependencies:
+```sh
+pip install -r requirements.txt
+```
+
 Install [tiny-cuda-nn](https://github.com/NVlabs/tiny-cuda-nn) for running Hash Grid based representations:
 ```sh
 pip install git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
 ```
 
-Install other dependencies:
+Install [NerfAcc](https://github.com/nerfstudio-project/nerfacc) for NeRF acceleration:
 ```sh
-pip install -r requirements.txt 
+pip install git+https://github.com/KAIR-BAIR/nerfacc.git
 ```
 
 ## Quick Start
