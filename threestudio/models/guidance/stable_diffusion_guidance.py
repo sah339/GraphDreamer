@@ -220,7 +220,8 @@ class StableDiffusionGuidance(BaseObject):
                 text_embeddings,
                 neg_guidance_weights,
             ) = prompt_utils.get_text_embeddings_perp_neg(
-                elevation, azimuth, camera_distances, self.cfg.view_dependent_prompting
+                elevation, azimuth, camera_distances, 
+                # self.cfg.view_dependent_prompting
             )
             with torch.no_grad():
                 noise = torch.randn_like(latents)
@@ -251,7 +252,8 @@ class StableDiffusionGuidance(BaseObject):
         else:
             neg_guidance_weights = None
             text_embeddings = prompt_utils.get_text_embeddings(
-                elevation, azimuth, camera_distances, self.cfg.view_dependent_prompting
+                elevation, azimuth, camera_distances, 
+                # self.cfg.view_dependent_prompting
             )
             # predict the noise residual with unet, NO grad!
             with torch.no_grad():
@@ -316,7 +318,8 @@ class StableDiffusionGuidance(BaseObject):
                 text_embeddings,
                 neg_guidance_weights,
             ) = prompt_utils.get_text_embeddings_perp_neg(
-                elevation, azimuth, camera_distances, self.cfg.view_dependent_prompting
+                elevation, azimuth, camera_distances, 
+                # self.cfg.view_dependent_prompting
             )
             with torch.no_grad():
                 noise = torch.randn_like(latents)
@@ -350,7 +353,8 @@ class StableDiffusionGuidance(BaseObject):
         else:
             neg_guidance_weights = None
             text_embeddings = prompt_utils.get_text_embeddings(
-                elevation, azimuth, camera_distances, self.cfg.view_dependent_prompting
+                elevation, azimuth, camera_distances, 
+                # self.cfg.view_dependent_prompting
             )
             # predict the noise residual with unet, NO grad!
             with torch.no_grad():

@@ -44,6 +44,7 @@ class PromptProcessorOutput:
     directions: List[DirectionConfig]
     direction2idx: Dict[str, int]
     use_perp_neg: bool
+    use_view_dependent: bool
     perp_neg_f_sb: Tuple[float, float, float]
     perp_neg_f_fsb: Tuple[float, float, float]
     perp_neg_f_fs: Tuple[float, float, float]
@@ -51,12 +52,12 @@ class PromptProcessorOutput:
 
     def get_text_embeddings(
         self,
-        elevation: Float[Tensor, "B"],  # 仰角
-        azimuth: Float[Tensor, "B"],  # 方位角
-        camera_distances: Float[Tensor, "B"],
-        view_dependent_prompting: bool = True,
+        elevation: Float[Tensor, "B"],
+        azimuth: Float[Tensor, "B"],
+        camera_distances: Float[Tensor, "B"]
     ) -> Float[Tensor, "BB N Nf"]:
         batch_size = elevation.shape[0]
+        view_dependent_prompting = self.use_view_dependent
 
         if view_dependent_prompting:
             # Get direction
@@ -83,8 +84,8 @@ class PromptProcessorOutput:
         elevation: Float[Tensor, "B"],
         azimuth: Float[Tensor, "B"],
         camera_distances: Float[Tensor, "B"],
-        view_dependent_prompting: bool = True,
     ) -> Tuple[Float[Tensor, "BBBB N Nf"], Float[Tensor, "B 2"]]:
+        view_dependent_prompting: bool = self.use_view_dependent
         assert (
             view_dependent_prompting
         ), "Perp-Neg only works with view-dependent prompting"
@@ -192,6 +193,7 @@ class PromptProcessor(BaseObject):
 
         # perp neg
         use_perp_neg: bool = False
+        use_view_dependent: bool = True
         # a*e(-b*r) + c
         # a * e(-b) + c = 0
         perp_neg_f_sb: Tuple[float, float, float] = (1, 0.5, -0.606)
@@ -321,13 +323,16 @@ class PromptProcessor(BaseObject):
                 for d in self.directions
             ]
 
-        # prompts_vd_display = " ".join(
-        #     [
-        #         f"[{d.name}]:[{prompt}]"
-        #         for prompt, d in zip(self.prompts_vd, self.directions)
-        #     ]
-        # )
-        # threestudio.info(f"Using view-dependent prompts {prompts_vd_display}")
+        if self.cfg.use_view_dependent:
+            prompts_vd_display = " ".join(
+                [
+                    f"[{d.name}]:[{prompt}]"
+                    for prompt, d in zip(self.prompts_vd, self.directions)
+                ]
+            )
+            threestudio.info(f"Using view-dependent prompts {prompts_vd_display}")
+        else: 
+            threestudio.info(f"Not using view-dependent prompts.")
 
         self.negative_prompts_vd = [
             d.negative_prompt(self.negative_prompt) for d in self.directions
@@ -523,6 +528,7 @@ class PromptProcessor(BaseObject):
             uncond_text_embeddings_vd=self.uncond_text_embeddings_vd,
             directions=self.directions,
             direction2idx=self.direction2idx,
+            use_view_dependent=self.cfg.use_view_dependent,
             use_perp_neg=self.cfg.use_perp_neg,
             perp_neg_f_sb=self.cfg.perp_neg_f_sb,
             perp_neg_f_fsb=self.cfg.perp_neg_f_fsb,

@@ -23,6 +23,7 @@ class ObjectDreamFusion(BaseLift3DSystem):
         prompt_obj_back: List[str] = field(default_factory=lambda: [])
         prompt_obj_side: List[str] = field(default_factory=lambda: [])
         prompt_obj_overhead: List[str] = field(default_factory=lambda: [])
+        obj_use_view_dependent: bool = False
 
         edge_list: List[List[int]] = field(default_factory=lambda: [[],])
        
@@ -111,19 +112,19 @@ class ObjectDreamFusion(BaseLift3DSystem):
             # obj prompt, back view:
             if len(self.cfg.prompt_obj_back) < num_obj:
                 for _ in range(num_obj - len(self.cfg.prompt_obj_back)):
-                    self.cfg.prompt_obj_back.append('none')
+                    self.cfg.prompt_obj_back.append("")
             else:
                 self.cfg.prompt_obj_back = self.cfg.prompt_obj_back[:num_obj]
             # obj prompt, side view:
             if len(self.cfg.prompt_obj_side) < num_obj:
                 for _ in range(num_obj - len(self.cfg.prompt_obj_side)):
-                    self.cfg.prompt_obj_side.append('none')
+                    self.cfg.prompt_obj_side.append("")
             else:
                 self.cfg.prompt_obj_side = self.cfg.prompt_obj_side[:num_obj]
             # obj prompt, overhead view:
             if len(self.cfg.prompt_obj_overhead) < num_obj:
                 for _ in range(num_obj - len(self.cfg.prompt_obj_overhead)):
-                    self.cfg.prompt_obj_overhead.append('none')
+                    self.cfg.prompt_obj_overhead.append("")
             else:
                 self.cfg.prompt_obj_overhead = self.cfg.prompt_obj_overhead[:num_obj]
             
@@ -143,6 +144,8 @@ class ObjectDreamFusion(BaseLift3DSystem):
                 tmp_cfg = self.cfg.prompt_processor
                 tmp_cfg.prompt = prompt_i
                 tmp_cfg.negative_prompt = prompt_i_neg
+                
+                tmp_cfg.use_view_dependent = self.cfg.obj_use_view_dependent
                 tmp_cfg.use_perp_neg = use_perp_neg_i
                 
                 tmp_cfg.prompt_back = prompt_i_back
