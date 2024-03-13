@@ -77,7 +77,7 @@ export P12=RELATIONSHIP_BETWEEN_OBJECT_1_AND_2
 export P13=RELATIONSHIP_BETWEEN_OBJECT_1_AND_3
 export P23=RELATIONSHIP_BETWEEN_OBJECT_2_AND_3
 ```
-and add ```system.prompt_global=[["$P12"],["$P23"],["$P13"]]``` to your script. Based on these relationships, a graph is created accordingly with edges ```export E=[[0,1],[0,2],[1,2]]``` and ```system.edge_list=$E```.
+and add ```system.prompt_global=[["$P12"],["$P23"],["$P13"]]``` to your script. Based on these relationships, a graph is created accordingly with edges ```export E=[[0,1],[1,2],[0,2]]``` and ```system.edge_list=$E```.
 
 
 Prompt the global scene by combining ```P12```, ```P13```, and ```P23``` into a sentence
