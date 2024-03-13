@@ -46,7 +46,7 @@ Install [NerfAcc](https://github.com/nerfstudio-project/nerfacc) for NeRF accele
 pip install git+https://github.com/KAIR-BAIR/nerfacc.git
 ```
 
-Guidance model [DeepFloyd IF](https://github.com/deep-floyd/IF?tab=readme-ov-file) currently requires to accept its usage conditions. To do so, you need to have a (Hugging Face account)[https://huggingface.co/welcome] (login in the terminal by `huggingface-cli login`) and accept the license on the model card of [DeepFloyd/IF-I-XL-v1.0](https://huggingface.co/DeepFloyd/IF-I-XL-v1.0). 
+Guidance model [DeepFloyd IF](https://github.com/deep-floyd/IF?tab=readme-ov-file) currently requires to accept its usage conditions. To do so, you need to have a [Hugging Face account](https://huggingface.co/welcome) (login in the terminal by `huggingface-cli login`) and accept the license on the model card of [DeepFloyd/IF-I-XL-v1.0](https://huggingface.co/DeepFloyd/IF-I-XL-v1.0). 
 
 ## Quick Start
 Generate a compositional scene of ```"a blue jay standing on a large basket of rainbow macarons"```:
