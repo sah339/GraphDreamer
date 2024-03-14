@@ -222,7 +222,7 @@ class PromptProcessor(BaseObject):
         raise NotImplementedError
 
     def configure(self) -> None:
-        self._cache_dir = "/cluster/project/schoelkopf/geggao/code/maskstudio/.threestudio_cache/text_embeddings"  # FIXME: hard-coded path
+        self._cache_dir = ".threestudio_cache/text_embeddings"  # FIXME: hard-coded path
 
         # view-dependent text embeddings
         self.directions: List[DirectionConfig]
