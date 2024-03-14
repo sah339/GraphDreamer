@@ -223,6 +223,7 @@ class PromptProcessor(BaseObject):
 
     def configure(self) -> None:
         self._cache_dir = ".threestudio_cache/text_embeddings"  # FIXME: hard-coded path
+        os.makedirs(self._cache_dir, exist_ok=True)
 
         # view-dependent text embeddings
         self.directions: List[DirectionConfig]
