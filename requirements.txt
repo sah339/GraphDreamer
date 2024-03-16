@@ -24,6 +24,7 @@ huggingface_hub
 diffusers >= 0.21.4
 accelerate
 transformers
+bitsandbytes>=0.39.0
 
 # for deepfloyd if
 sentencepiece
