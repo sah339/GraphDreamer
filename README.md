@@ -29,7 +29,7 @@ cd GraphDreamer
 ```
 Create environment:
 ```sh
-python3 -m venv venv/GraphDreamer
+python3 -m venv --system-site-packages venv/GraphDreamer
 source venv/GraphDreamer/bin/activate  # Repeat this step for every new terminal
 ```
 Install dependencies:
