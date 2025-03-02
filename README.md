@@ -20,7 +20,8 @@ This repository contains a pytorch implementation for the paper [GraphDreamer: C
 
 
 ## Installation
-#### Tested on CentOS 7.9 + Python 3.10.10 + Pytorch 2.0.1
+#### Will attempt to use most up to date packages available
+#### I'm using Ubuntu 24.04 python3.12
 
 ```sh
 git clone https://github.com/GGGHSL/GraphDreamer.git
@@ -28,7 +29,7 @@ cd GraphDreamer
 ```
 Create environment:
 ```sh
-python3.10 -m venv venv/GraphDreamer
+python3 -m venv venv/GraphDreamer
 source venv/GraphDreamer/bin/activate  # Repeat this step for every new terminal
 ```
 Install dependencies:

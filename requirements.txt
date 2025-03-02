@@ -1,7 +1,7 @@
-torch==2.0.1
-torch-ema==0.3
-tensorboard==2.13.0
-tensorboardX==2.6
+torch
+torch-ema
+tensorboard
+tensorboardX
 
 tqdm
 ninja
@@ -13,7 +13,7 @@ imageio
 imageio-ffmpeg
 jaxtyping
 libigl
-wandb==0.15.4
+wandb
 
 omegaconf
 # git+https://github.com/openai/CLIP.git
@@ -21,15 +21,15 @@ pytorch-lightning
 
 # for stable-diffusion
 huggingface_hub
-diffusers >= 0.21.4
+diffusers 
 accelerate
 transformers
-bitsandbytes>=0.39.0
+bitsandbytes
 
 # for deepfloyd if
 sentencepiece
 
 # for dmtet and mesh export
 # pysdf
-trimesh==3.21.7
+trimesh
 git+https://github.com/NVlabs/nvdiffrast/
