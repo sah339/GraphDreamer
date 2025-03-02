@@ -21,10 +21,10 @@ This repository contains a pytorch implementation for the paper [GraphDreamer: C
 
 ## Installation
 #### Will attempt to use most up to date packages available
-#### I'm using Ubuntu 24.04 python3.12
+#### I'm using Ubuntu 24.04 Python3.12
 
 ```sh
-git clone https://github.com/GGGHSL/GraphDreamer.git
+git clone https://github.com/sah339/GraphDreamer.git
 cd GraphDreamer
 ```
 Create environment:
