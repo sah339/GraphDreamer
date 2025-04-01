@@ -89,6 +89,7 @@ def main(): # -> None:
     from threestudio.utils.typing import Optional
 
     torch.autograd.set_detect_anomaly(True)
+    torch.set_float32_matmul_precision("medium")
 
     logger = logging.getLogger("pytorch_lightning")
     if args.verbose:

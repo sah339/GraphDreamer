@@ -3,6 +3,8 @@ torch-ema
 tensorboard
 tensorboardX
 
+typeguard
+
 tqdm
 ninja
 numpy

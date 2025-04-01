@@ -5,7 +5,7 @@ from dataclasses import dataclass
 import torch
 import torch.nn as nn
 from diffusers import IFPipeline
-from transformers import T5EncoderModel, T5Tokenizer
+from transformers import T5EncoderModel, T5Tokenizer, BitsAndBytesConfig
 
 import threestudio
 from threestudio.models.prompt_processors.base import PromptProcessor, hash_prompt
@@ -60,13 +60,12 @@ class DeepFloydPromptProcessor(PromptProcessor):
         tokenizer = T5Tokenizer.from_pretrained(
             pretrained_model_name_or_path, subfolder="tokenizer"
         )
+        quant_config = BitsAndBytesCOnfig(load_in_8bit=True)
         text_encoder = T5EncoderModel.from_pretrained(
             pretrained_model_name_or_path,
             subfolder="text_encoder",
-            torch_dtype=torch.float16,  # suppress warning
-            load_in_8bit=True,
+            quantization_config=quant_config,
             variant="8bit",
-            device_map="auto",
         )
         with torch.no_grad():
             text_inputs = tokenizer(

@@ -124,7 +124,7 @@ class DeepFloydGuidance(BaseObject):
 
         threestudio.info(f"Loaded Deep Floyd!")
 
-    @torch.cuda.amp.autocast(enabled=False)
+    @torch.amp.autocast(device_type='cuda', enabled=False)
     def forward_unet(
         self,
         latents: Float[Tensor, "..."],
